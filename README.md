@@ -1,41 +1,30 @@
-# metadata-crawler
+# WebInfo API
 
-## Prerequisites
-Java 17 or higher
-Gradle 7.5.1 or higher (optional, if you are using Gradle to build the project)
+This API allows you to retrieve the title, representative image, and description of a website by providing the URL of the website as an input.
 
-## Setting up the project
-### 1. Clone the repository:
+## How to use
+To use the API, send a GET request to the following endpoint:
 ```
-git clone https://github.com/revfactory/metadata-crawler.git
+/webinfo?url=<URL>
 ```
+Replace <URL> with the URL of the website that you want to retrieve information for.  
 
-### 2. Navigate to the project directory:
+The API will return a JSON object with the following structure:
 ```
-cd metadata-crawler
-```
-
-### 3. Build the project:
-```
-./gradlew build
+{
+  "title": "Title of the website",
+  "imageUrl": "URL of the representative image",
+  "description": "Description of the website"
+}
 ```
 
-### 4. Run the application:
+## Example
+Here is an example of how to use the API:
 ```
-./gradlew bootRun
-```
-
-## Using the API
-Once the application is running, you can use the API by sending a GET request to the /site-metadata endpoint, with the url query parameter set to the URL of the website you want to get the metadata for.
-
-For example, to get the metadata for the website https://www.daum.net, you can send a request like this:
-```
-curl "http://localhost:8080/site-metadata?url=https://www.daum.net"
+curl http://localhost:8080/webinfo?url=https://www.daum.net
 ```
 
-The API will return a JSON object containing the metadata for the website, including the title, representative image, and description.
-
-Example response:
+This will return the following response:
 ```
 {
   "title": "Daum",
@@ -45,5 +34,11 @@ Example response:
 ```
 Note: This API is just an example and may not work for all websites. Some websites may use different tags or structures for their metadata, or may not include certain metadata at all. You may need to modify the code to handle these cases.
 
+## Dependencies
+This API uses the JSoup library to parse HTML and extract the website's title, representative image, and description. You will need to include the JSoup library as a dependency in your project in order to use this API.
 
+To add the dependency to your project, include the following line in your build.gradle file:
+```
+implementation 'org.jsoup:jsoup:1.13.1'
+```
 
